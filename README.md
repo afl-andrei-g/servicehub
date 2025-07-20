@@ -22,41 +22,41 @@
 
 - **Frontend**: HTML5, CSS3, JavaScript, jQuery
 - **Backend**: Django (Python3)
-- **Database**: MariaDB
-- **Deployment**: Gunicorn
+- **Database**: MariaDB (MySQL fork)
+- **Deployment**: Gunicorn w/ Nginx
 
 ---
 
 ## ⚙️ Local Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/afl-andrei-g/servicehub.git
-   cd servicehub
-   python -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
-   ```
+```bash
+git clone https://github.com/afl-andrei-g/servicehub.git
+cd servicehub
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
 2. Create a .env file in the root of the project
-  ```bash
-  SECRET_KEY='SECRET_KEY'
-  APP_URL='YOUR_APP_URL'
-  EMAIL_HOST='SMTP_HOST'
-  EMAIL_HOST_USER = 'SMTP_USER'
-  EMAIL_HOST_PASSWORD = 'SMTP_PW'
+```bash
+SECRET_KEY='SECRET_KEY'
+APP_URL='YOUR_APP_URL'
+EMAIL_HOST='SMTP_HOST'
+EMAIL_HOST_USER = 'SMTP_USER'
+EMAIL_HOST_PASSWORD = 'SMTP_PW'
 
-  DB_USER='SMTP_USER'
-  DB_PW='SMTP_PW'
-  DB_HOST='localhost'
-  ```
+DB_USER='SMTP_USER'
+DB_PW='SMTP_PW'
+DB_HOST='localhost'
+```
 
 Make sure you fill all the needed information, including upload of the database.
 
 3. Run the app:
-   ```bash
-   python3 manage.py runserver
-   ```
+```bash
+python3 manage.py runserver
+```
 
 ## 🤝 Contributing
 Contributions are welcome! If you’d like to suggest improvements or fixes, feel free to open an issue or submit a pull request.

@@ -1,0 +1,293 @@
+{% extends "dashboard/base.html" %}
+{% block title %}ServiceHub - Acasă{% endblock %}
+{% block content %}
+<main class="main-content">
+    {% include "dashboard/header.html" %}
+
+    <div class="dashboard-content">
+        <section class="dashboard-section vehicle-overview">
+            <div class="section-header">
+                <h2>🚘 Vehiculele tale</h2>
+            </div>
+            <div class="vehicle-cards">
+                {% if vehicles|length > 0 %}
+                    {% for i in vehicles %}
+                    <div class="vehicle-card">
+                        <div class="vehicle-details">
+                            <h3>{{i.name}} <i class="fa-solid fa-pen-to-square" style="color: var(--primary); cursor: pointer; margin-left: 5px;" onclick="EditVehicle({{i.id}}, 'open');"></i></h3>
+                            <div class="vehicle-info">
+                                <span><i class="fas fa-tachometer-alt"></i> {{i.km}} km</span>
+                                <span><i class="fas fa-hashtag"></i> {{i.plate}}</span>
+                            </div>
+                            <div class="vehicle-status" style="margin-bottom: 0px;">
+                                {% for service in services %}
+                                    {% if service.veh == i.id and service.status < 4 %}
+                                    <div class="status-item">
+                                        <span class="status-label">{{service.title|truncatechars:10}}</span>
+                                        <div class="status-bar">
+                                            <div class="status-progress" style="width: {{service.perc}}%;"></div>
+                                        </div>
+                                        <span class="status-value">{{service.perc}}%</span>
+                                        <button class="btn-icon" style="margin-left: 15px;" onclick="window.location.href='{{appurl}}/dashboard/service/{{service.id}}';"><i class="fas fa-eye"></i></button>  
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <center>
+                        <h1>Nu există vehicule pe contul tău pentru moment.</h1>
+                    </center>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="dashboard-section company-management">
+            <div class="section-header">
+                <h2>🛠️ Servisările mele</h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Servisare</th>
+                            <th>Status</th>
+                            <th>Dată</th>
+                            <th>Vehicul</th>
+                            <th>Estimare preț</th>
+                            <th>Acțiuni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in services %}
+                        <tr>
+                            <td>{{i.title}}</td>
+                            <td>{{i.f_status}}</td>
+                            <td>{{i.date}}</td>
+                            <td>{{i.name}} ({{i.plate}})</td>
+                            <td><span class="status-badge active">{{i.note}}</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon" onclick="window.location.href='{{appurl}}/dashboard/service/{{i.id}}';"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="dashboard-section service-history">
+                <div class="section-header">
+                    <h2>🔀 Ultimele servisări</h2>
+                </div>
+                <div class="history-list" id="last_appointments">
+                    {% for service in services|slice:":3" %}
+                        {% if service.status == 4 %}
+                        <div class="history-item">
+                            <div class="history-date">
+                                <span class="month">{{ service.date|date:"m" }}/{{ service.date|date:"y" }}</span>
+                                <span class="day">{{ service.date|date:"d" }}</span>
+                            </div>
+                            <div class="history-details">
+                                <h3>{{service.title}}</h3>
+                                <div class="history-meta">
+                                    <span><i class="fas fa-car"></i> {{service.name}}</span>
+                                    <span><i class="fas fa-building"></i> {{service.company.name}}</span>
+                                </div>
+                            </div>
+                            <div class="history-cost">
+                                <span>{{service.note}}</span>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-outline btn-sm" onclick="window.location.href='{{appurl}}/dashboard/service/{{service.id}}'"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% empty %}
+                        <center>
+                            <h3>⚠️ În acest moment, nu există servisări.</h3>
+                        </center>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="dashboard-section upcoming-appointments">
+                <div class="section-header">
+                    <h2>Servisări viitoare</h2>
+                </div>
+                <div class="appointment-list" id="future_appointments">
+                    {% for service in services|slice:":3" %}
+                        {% if service.status == 0 %}
+                        <div class="appointment-item">
+                            <div class="appointment-date">
+                                <div class="date-box">
+                                    <span class="month">{{ service.date|date:"m" }}/{{ service.date|date:"y" }}</span>
+                                    <span class="day">{{ service.date|date:"d" }}</span>
+                                </div>
+                                <span class="time">{{ service.date|date:"h" }}:00 AM</span>
+                            </div>
+                            <div class="appointment-details">
+                                <h3>{{service.title}}</h3>
+                                <div class="appointment-meta">
+                                    <span><i class="fas fa-car"></i> {{service.name}}</span>
+                                    <span><i class="fas fa-building"></i> {{service.company.name}}</span>
+                                </div>
+                                <p class="appointment-notes">Estimare de preț {{service.note}}</p>
+                            </div>
+                            <div class="appointment-actions">
+                                <button class="btn-outline btn-sm" onclick="window.location.href='{{appurl}}/dashboard/service/{{service.id}}'"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% empty %}
+                        <center>
+                            <h3>⚠️ În acest moment, nu există servisări.</h3>
+                        </center>
+                    {% endfor %}
+                </div>
+                <div class="no-appointments" style="display: none;">
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>No Upcoming Appointments</h3>
+                        <p>Schedule your next service appointment to keep your vehicle in top condition.</p>
+                        <button class="btn-primary">Schedule Now</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="dashboard-section maintenance-reminders" id="mementos">
+            <div class="section-header">
+                <h2>Memento</h2>
+                <div>
+                    <a class="view-all" onclick="AddMemento('open');">Creează un memento nou</a> <small>sau</small> <a href="{{appurl}}/dashboard/mementos" class="view-all">Vezi toate</a>
+                </div>
+            </div>
+            <div class="reminders-grid">
+                {% for m in memento|slice:":3" %}
+                <div class="reminder-card warning">
+                    <div class="reminder-icon">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <div class="reminder-details">
+                        <h3>Memento pentru {{m.date}}</h3>
+                        <p>{{m.title}}</p>
+                    </div>
+                    <!-- <div class="reminder-actions">
+                        <button class="btn-outline">Contactează service-ul</button>
+                    </div> -->
+                </div>
+                {% empty %}
+                <center>
+                    <h3>⚠️ În acest moment, nu există mementouri.</h3>
+                </center>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</main>
+
+
+<div class="modal" id="EditVehicle">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Editează vehicul</h2>
+            <button class="close-modal" onclick="EditVehicle(0, 'close');">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group" style="display: none;">
+                    <label for="serviceVehicle">Editezi vehiculul</label>
+                    <input type="number" id="serviceVehicle" name="serviceVehicle" required/>
+                </div>
+                <div class="form-group">
+                    <label for="serviceKM">Kilometraj</label>
+                    <input type="number" id="serviceKM" name="serviceKM" placeholder="Introdu kilometrajul actual al vehiculului" required/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" name="vehedit">Editează vehiculul</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AddMemento">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Adaugă memento</h2>
+            <button class="close-modal" onclick="AddMemento('close');">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="mementoReason">Memento</label>
+                    <select name="mementoReason" id="mementoReason" required>
+                        <option value="schimb_ulei">Schimb ulei</option>
+                        <option value="filtru_aer">Schimb filtru de aer</option>
+                        <option value="filtru_motorina">Schimb filtru motorină</option>
+                        <option value="filtru_habitaclu">Schimb filtru habitaclu</option>
+                        <option value="revizie_generala">Revizie generală</option>
+                        <option value="schimb_placute_fata">Schimb plăcuțe frână față</option>
+                        <option value="schimb_placute_spate">Schimb plăcuțe frână spate</option>
+                        <option value="schimb_discuri">Schimb discuri frână</option>
+                        <option value="ITP">Inspecție tehnică periodică (ITP)</option>
+                        <option value="asigurare_rca">Reînnoire asigurare RCA</option>
+                        <option value="schimb_anvelope">Schimb anvelope (vară/iarnă)</option>
+                        <option value="verificare_frigorifica">Verificare sistem aer condiționat</option>
+                        <option value="verificare_baterie">Verificare/stare baterie</option>
+                        <option value="verificare_directie">Verificare sistem direcție</option>
+                        <option value="verificare_suspensie">Verificare suspensie</option>
+                        <option value="schimb_distributie">Schimb kit distribuție</option>
+                        <option value="schimb_ulei_cutie">Schimb ulei cutie de viteze</option>
+                        <option value="schimb_fluide_frene">Schimb lichid frână</option>
+                        <option value="schimb_antigel">Schimb lichid răcire (antigel)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mementoVehicle">Selectează un vehicul</label>
+                    <select name="mementoVehicle" required>
+                        <option value="">Selectează un vehicul</option>
+                        {% for i in vehicles %}
+                        <option value="{{i.id}}">{{i.name}} ({{i.plate}})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mementoDate">Când vrei să fii notificat?</label>
+                    <input type="datetime-local" name="mementoDate" id="mementoDate" required>
+                    <p style="font-size: 12px;">
+                        Vei fi notificat în legătură cu acest memento înainte cu 14, 7, respectiv 2 zile înainte de data de expirare.
+                    </p>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" name="memento">Adaugă memento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    showNoDataMessageIfEmptyById(['future_appointments', 'last_appointments']);
+    
+    EditVehicle = (id, action) => {
+        $(`#EditVehicle`).css('display', action == "close" ? 'none' : "block");
+
+        if(action=="open"){
+            $(`#serviceVehicle`).val(id);
+        }
+    }
+
+    AddMemento = (action) => {
+        $(`#AddMemento`).css('display', action == "close" ? 'none' : "block");
+    }
+</script>
+{% endblock %}

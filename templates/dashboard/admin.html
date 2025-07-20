@@ -1,0 +1,107 @@
+{% extends "dashboard/base.html" %}
+{% block title %}ServiceHub - Acasă{% endblock %}
+{% block content %}
+<main class="main-content">
+    {% include "dashboard/header.html" %}
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+        <!-- Stats Overview -->
+        <section class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon companies">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Total Companii</h3>
+                    <p class="stat-value">{{companies|length}}</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon clients">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Total Clienți</h3>
+                    <p class="stat-value">{{clients|length}}</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon vehicles">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Total Vehicule</h3>
+                    <p class="stat-value">{{vehicles|length}}</p>
+                </div>
+            </div>
+            <!-- <div class="stat-card">
+                <div class="stat-icon revenue">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Revenue</h3>
+                    <p class="stat-value">$24,850</p>
+                </div>
+            </div> -->
+        </section>
+
+        <!-- Company Management -->
+        <section class="dashboard-section company-management">
+            <div class="section-header">
+                <h2>Companii înregistrate</h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nume</th>
+                            <th>E-mail</th>
+                            <th>Clienți</th>
+                            <th>Vehicule</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in companies %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.name}}</td>
+                            <td class="email-censor">{{i.email}}</td>
+                            <td>{{i.clients}}</td>
+                            <td>{{i.vehicles}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="dashboard-section company-management">
+            <div class="section-header">
+                <h2>Clienți</h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nume</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in clients %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.name}}</td>
+                            <td class="email-censor">{{i.email}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

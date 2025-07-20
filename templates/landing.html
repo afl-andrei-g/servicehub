@@ -1,0 +1,312 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <!--         
+    █▀ █▀▀ █▀█ █░█ █ █▀▀ █▀▀ █░█ █░█ █▄▄
+    ▄█ ██▄ █▀▄ ▀▄▀ █ █▄▄ ██▄ █▀█ █▄█ █▄█ 
+    -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ServiceHub - Management inteligent al mașinilor pentru afaceri moderne</title>
+        <meta name="description" content="Urmăriți, gestionați și optimizați service-ul dvs. de vehicule cu platforma completă de gestionare a mașinilor de la ServiceHub.">
+        <link rel="stylesheet" href="{% static 'landing/index.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+        <link rel="icon" href="{% static 'img/servicehub-sm-white.png' %}">
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <img src="{% static 'img/servicehub-black.png' %}" alt="ServiceHub Logo">
+                    </div>
+                    <nav class="main-nav">
+                        <ul>
+                            <li><a href="#features">Caracteristici</a></li>
+                            <li><a href="#how-it-works">Cum funcționează</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="window.location.href='{{appurl}}/auth';">Începe acum</button>
+                        <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mobile-menu" id="mobile-menu">
+                    <ul>
+                        <li><a href="#features">Caracteristici</a></li>
+                        <li><a href="#how-it-works">Cum funcționează</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <button class="btn btn-primary mobile-cta" onclick="window.location.href='{{appurl}}/auth';">Începe acum</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1>Service-ul auto, reinventat.</h1>
+                            <p>Urmărește, gestionează și optimizează service-ul tău.</p>
+                        </div>
+                        <div class="hero-image">
+                            <div class="dashboard-preview">
+                                <img src="https://placehold.co/600x400/f8f9fa/495057?text=ServiceHub+Dashboard" alt="ServiceHub Dashboard">
+                            </div>
+                            
+                            <!-- Floating Elements -->
+                            <div class="floating-elements">
+                                <div class="floating-element car-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <div class="floating-element location-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="floating-element settings-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div class="floating-element chart-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="floating-element notification-icon">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="floating-element calendar-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="floating-element card card-stats">
+                                    <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    <div class="card-content">
+                                        <h4>Status</h4>
+                                        <p>12 vehicule în lucru</p>
+                                    </div>
+                                </div>
+                                <div class="floating-element card card-alert">
+                                    <div class="card-icon alert"><i class="fas fa-exclamation-triangle"></i></div>
+                                    <div class="card-content">
+                                        <h4>Mentenanță</h4>
+                                        <p>Vehiculul cu nr. înmatriculare IS01SHB are nevoie de mentenanță</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-bg"></div>
+            </section>
+
+            <!-- <section class="trusted-by">
+                <div class="container">
+                    <h2>De încredere pentru firme lider</h2>
+                    <div class="partners">
+                        <div class="partner">
+                            <img src="https://placehold.co/120x48/f8f9fa/495057?text=Partner+1" alt="Partner 1">
+                        </div>
+                        <div class="partner">
+                            <img src="https://placehold.co/120x48/f8f9fa/495057?text=Partner+2" alt="Partner 2">
+                        </div>
+                        <div class="partner">
+                            <img src="https://placehold.co/120x48/f8f9fa/495057?text=Partner+3" alt="Partner 3">
+                        </div>
+                        <div class="partner">
+                            <img src="https://placehold.co/120x48/f8f9fa/495057?text=Partner+4" alt="Partner 4">
+                        </div>
+                        <div class="partner">
+                            <img src="https://placehold.co/120x48/f8f9fa/495057?text=Partner+5" alt="Partner 5">
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+
+            <section id="features" class="features">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Management complet al vehiculelor</h2>
+                        <p>Tot ce ai nevoie pentru a-ți gestiona eficient clienții într-o singură platformă</p>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <h3>Urmărește vehiculele</h3>
+                            <p>Vezi în timp real statusul lucrărilor efectuate pe vehicule.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h3>Programarea mentenanței</h3>
+                            <p>Mementouri automate de service și urmărirea istoricului de întreținere.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>Istoric servicii</h3>
+                            <p>Evidență digitală completă a tuturor service-urilor, reparațiilor și inspecțiilor vehiculului.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Verifică de oriunde</h3>
+                            <p>PC, Laptop, Tabletă sau Telefon? Poți accesa platforma de oriunde.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Date securizate</h3>
+                            <p>Securitate la cel mai înalt nivel pentru a vă proteja afacerea și informațiile clienților.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Mereu în conformitate</h3>
+                            <p>Respectăm cerințele de reglementare și standardele din industrie.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="how-it-works" class="how-it-works">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Cum funcționează ServiceHub</h2>
+                        <p>Începe în câteva minute și transformă modul în care afacerea ta gestionează vehiculele</p>
+                    </div>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">01</div>
+                            <div class="step-content">
+                                <h3>Înregistrează-ți firma</h3>
+                                <p>Începe să adaugi tehnicieni care pot gestiona vehiculele clienților, cât și clienți sau vehiculele acestora.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">02</div>
+                            <div class="step-content">
+                                <h3>Monitorizează-ți afacerea</h3>
+                                <p>Vezi toate acțiunile realizate de tehnicieni, cât și alte analitici.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">03</div>
+                            <div class="step-content">
+                                <h3>Optimizează timpii de așteptare</h3>
+                                <p>Folosește informații și analize pentru a îmbunătăți eficiența și a reduce costurile operaționale.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-cta">
+                        <button class="btn btn-primary" onclick="window.location.href = '{{appurl}}/auth';">Începe acum <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta">
+                <div class="container">
+                    <div class="cta-content">
+                        <h2>Gata să transformi managementul vehiculului tău?</h2>
+                        <p>Alătură-te zecilor de companii care au încredere în ServiceHub pentru gestionarea eficientă a service-urilor.</p>
+                        <div class="cta-buttons">
+                            <button class="btn btn-light" onclick="window.location.href='{{appurl}}/auth';">Înregistrează-te</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="contact">
+                <div class="container">
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <h2>Contactează-ne</h2>
+                            <p>Ai întrebări despre ServiceHub? Echipa noastră este aici pentru a te ajuta să găsești soluția potrivită pentru afacerea ta</p>
+                            <div class="contact-methods">
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="method-details">
+                                        <h4>Trimite un e-mail</h4>
+                                        <p>info@servicehub.ro</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-form-container">
+                            <h3>Scrie-ne un mesaj</h3>
+                            <form id="contact-form" class="contact-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="name">Nume</label>
+                                        <input type="text" id="name" placeholder="Numele tău">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" placeholder="Adresa de e-mail">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="company">Companie</label>
+                                    <input type="text" id="company" placeholder="Numele companiei tale">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Mesaj</label>
+                                    <textarea id="message" rows="4" placeholder="Cu ce te putem ajuta?"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Trimite mesajul</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <!-- <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="logo">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/shub-RWX1md5OaqvKbJGSh0PYZeKs7dTgae.png" alt="ServiceHub Logo">
+                        </div>
+                        <p>Management complet al vehiculelor pentru afaceri moderne.</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>>
+                    <div class="footer-links">
+                        <h4>Companie</h4>
+                        <ul>
+                            <li><a href="#">Despre</a></li>
+                            <li><a href="#">Termeni și condiții</a></li>
+                            <li><a href="#">GDPR</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div class="footer-bottom">
+                    <p>&copy; <span id="current-year"></span> ServiceHub. Toate drepturile rezervate.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
+</html>

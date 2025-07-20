@@ -1,0 +1,60 @@
+{% extends "dashboard/base.html" %}
+{% block title %}ServiceHub - Acasă{% endblock %}
+{% block content %}
+<main class="main-content">
+    {% include "dashboard/header.html" %}
+
+    <div class="dashboard-content">
+        <section class="dashboard-section vehicle-overview" id="cal">
+            <div class="section-header">
+                <h2>📅 Calendar</h2>
+            </div>
+            <center>
+                <div id="calendar" style="width: 75%;"></div>
+            </center>
+        </section>
+
+        <section class="dashboard-section vehicle-overview">
+            <div class="section-header" id="aloc">
+                <h2>🗓️ Lista tuturor mementourilor</h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Memento</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in mementos %}
+                        <tr>
+                            <td>{{i.title}}</td>
+                            <td>
+                                {{i.date}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var calendarEl = document.getElementById('calendar');
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'ro',
+            events: [
+              {% for i in mementos %}
+                { title: `{{i.title|truncatechars:20}}`, date: '{{i.start}}' },
+              {% endfor %}
+            ]
+          });
+          calendar.render();
+        });
+      </script>      
+</main>
+{% endblock %}

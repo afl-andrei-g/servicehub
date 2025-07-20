@@ -1,0 +1,93 @@
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img class="logo"/>
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            <li>
+                <a href="{{appurl}}/dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Acasă</span>
+                </a>
+            </li>
+
+            {% if user.account_type == 'company' %}
+                <li>
+                    <a href="{{appurl}}/dashboard/clients">
+                        <i class="fas fa-users"></i>
+                        <span>Clienți</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{appurl}}/dashboard/techs">
+                        <i class="fas fa-car"></i>
+                        <span>Tehnicieni</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{appurl}}/dashboard/appointments">
+                        <i class="fas fa-calendar"></i>
+                        <span>Programări</span>
+                    </a>
+                </li>
+            {% elif user.account_type == 'technician' %}
+                
+            {% elif user.account_type == 'client' %}
+                <li>
+                    <a href="{{appurl}}/dashboard/mementos">
+                        <i class="fas fa-calendar"></i>
+                        <span>Mementouri</span>
+                    </a>
+                </li>
+            {% endif %}
+        
+            
+
+            <!-- <li>
+                <a href="#appointments">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Programări</span>
+                </a>
+            </li>
+            <li>
+                <a href="#services">
+                    <i class="fas fa-car"></i>
+                    <span>Servisări</span>
+                </a>
+            </li>
+            <li>
+                <a href="#clients">
+                    <i class="fas fa-users"></i>
+                    <span>Clienți</span>
+                </a>
+            </li>
+            <li>
+                <a href="#invoices">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Facturi</span>
+                </a>
+            </li>
+            <li>
+                <a href="#analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analitici</span>
+                </a>
+            </li>
+            <li>
+                <a href="#settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Setări</span>
+                </a>
+            </li> -->
+        </ul>
+    </nav>
+    <div class="sidebar-footer">
+        <a href="/auth/logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Delogare</span>
+        </a>
+    </div>
+</aside>

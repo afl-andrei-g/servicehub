@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <!--         
+    █▀ █▀▀ █▀█ █░█ █ █▀▀ █▀▀ █░█ █░█ █▄▄
+    ▄█ ██▄ █▀▄ ▀▄▀ █ █▄▄ ██▄ █▀█ █▄█ █▄█ 
+    -->
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}ServiceHub{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'dashboard/index.css' %}">
+        <link rel="icon" href="{% static 'img/servicehub-sm-white.png' %}">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
+        <script src="{% static 'dashboard/index.js' %}"></script>
+    </head>
+    <body>
+        {% if messages %}
+            <ul class="messages" id="shub_notis" style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); z-index: 999;">
+            {% for message in messages %}
+                <li class="{{ message.tags }}" style="width: auto; height: 50px; padding: 15px 15px; text-align: center; background-color: #000; color: #fff; font-size: 15px; border-radius: 25px;">{{ message }}</li>
+            {% endfor %}
+            </ul>
+
+            <script>
+                setTimeout(
+                    () => {
+                        document.getElementById('shub_notis').textContent = '';
+                    }, 5000
+                )
+            </script>
+        {% endif %}
+
+        <div class="dashboard-container">
+            {% include "dashboard/sidebar.html" %}
+
+            {% block content %}{% endblock %}
+        </div>
+
+        <script src="{% static 'dashboard/datatable.js' %}"></script>
+    </body>
+</html>

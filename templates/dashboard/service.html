@@ -1,0 +1,153 @@
+{% extends "dashboard/base.html" %}
+{% block title %}ServiceHub - Acasă{% endblock %}
+{% block content %}
+<main class="main-content">
+    {% include "dashboard/header.html" %}
+
+    <div class="dashboard-content">
+        <section class="dashboard-section current-services">
+            <div class="section-header">
+                <h2>
+                    <a href="{{appurl}}/dashboard"><i class="fa-solid fa-arrow-left"></i></a>    
+                    Detalii despre servisare
+                </h2>
+            </div>
+            <div class="service-card active">
+                <div class="service-header">
+                    <div class="service-id">#SRV-{{service.id}}</div>
+                    <div class="service-date">{{service.date}}</div>
+                </div>
+                <div class="service-details">
+                    <h3>{{service.title}}</h3>
+                    <div class="service-provider">
+                        <img src="{{company.avatar}}" alt="Provider">
+                        <span>{{company.name}}</span>
+                    </div>
+                    <div class="vehicle-info">
+                        <i class="fas fa-car"></i>
+                        <span>{{vehicle.name}}</span>
+                    </div>
+                    <div class="service-progress">
+                        <div class="progress-label">
+                            <span>Progres</span>
+                            <span>{{percentage}}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: {{percentage}}%;"></div>
+                        </div>
+                    </div>
+                    <div class="service-timeline">
+                        <div class="timeline-item 
+                            {% if service.status > 1 %}completed
+                            {% elif service.status == 1 %}active
+                            {% endif %}">
+                            <div class="timeline-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Check-in vehicul</h4>
+                                <p>
+                                    {% if service.status > 1 %}Completat
+                                    {% elif service.status == 1 %}Recepționat în service-ul nostru 💪
+                                    {% else %}În așteptare
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item 
+                            {% if service.status > 2 %}completed
+                            {% elif service.status == 2 %}active
+                            {% endif %}">
+                            <div class="timeline-icon">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Diagnoză</h4>
+                                <p>
+                                    {% if service.status > 2 %}Completat
+                                    {% elif service.status == 2 %}Efectuăm verificări complexe pentru a diagnostica problemele vehiculului 🛠️
+                                    {% else %}În așteptare
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item 
+                            {% if service.status > 3 %}completed
+                            {% elif service.status == 3 %}active
+                            {% endif %}">
+                            <div class="timeline-icon">
+                                <i class="fas fa-wrench"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Reparație</h4>
+                                <p>
+                                    {% if service.status > 3 %}Completat
+                                    {% elif service.status == 3 %}În reparație - ne asigurăm că vehiculul tău este reparat sau întreținut corespunzător ✅
+                                    {% else %}În așteptare
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    
+                        <div class="timeline-item 
+                            {% if service.status == 4 %}active{% endif %}">
+                            <div class="timeline-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Gata de preluare</h4>
+                                <p>{% if service.status == 4 %}Te așteptăm să-ți ridici vehiculul din {{company.address}}.{% else %}În așteptare{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-actions">
+                    {% if user.account_type == 'technician' or user.account_type == 'company' %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <select class="btn-input" id="serviceStatus" name="serviceStatus" required>
+                            <option value="">Selectează un status nou</option>
+                            <option value="1">Check-in vehicul - Am preluat vehiculul în service și așteptăm diagnoza.</option>
+                            <option value="2">Am început diagnosticarea vehiculului pentru a găsi eventuale probleme.</option>
+                            <option value="3">Am început reparația pe baza diagnosticării.</option>
+                            <option value="4">Vehiculul a fost reparat și este gata de preluare.</option>
+                        </select>
+                        <button class="btn-outline" type="submit" name="status">Actualizează status</button>
+                    </form>
+                    {% endif %}
+                </div>
+                <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(0,0,0, 0.2);">
+                    <h2>Discută cu {% if user.account_type == 'technician' or user.account_type == 'company' %}clientul{% else %}tehnicianul{% endif %}</h2>
+                    <div style="height: 200px; overflow-y: scroll; width: 100%; margin-top: 10px;" id="chat-box">
+                        {% for i in notes %}
+                        <div class="servicehub_flex">
+                            <img src="{{i.avatar}}"/>
+                            <div>
+                                <p>{{i.user}} <small><font style="color: rgba(0, 0, 0, 0.3); margin-left: 5px;"><i class="fa-solid fa-clock"></i> {{i.friendly_timestamp}}</font></small></p>
+                                <p>{{i.message}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <form method="post" style="display: flex; margin-top: 15px; gap: 15px;">
+                        {% csrf_token %}
+                        <input class="btn-input" type="text" id="serviceMessage" name="serviceMessage" style="width: 70%;" placeholder="Scrie un mesaj..." {% if service.status == 4 %}disabled{% endif %} required/>
+                        <button class="btn-outline" type="submit" name="servmsg" style="width: 15%;">Trimite mesajul</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script>
+    const chatBox = document.getElementById("chat-box");
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    TechModal = (action) => {
+        $(`#AddTech`).css('display', action == 'open' ? 'block' : 'none');
+    };
+</script>
+{% endblock %}

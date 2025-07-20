@@ -1,0 +1,254 @@
+{% extends "dashboard/base.html" %}
+{% block title %}ServiceHub - Acasă{% endblock %}
+{% block content %}
+<main class="main-content">
+    {% include "dashboard/header.html" %}
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+        <!-- Stats Overview -->
+        <section class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon appointments">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Programările din urm. 7 zile</h3>
+                    <p class="stat-value">{{services|length}}</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon services">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Vehicule alocate</h3>
+                    <p class="stat-value">{{header.vehicles}}</p>
+                </div>
+            </div>
+            <!-- <div class="stat-card">
+                <div class="stat-icon revenue">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Câștigurile preconizate în urm. 7 zile</h3>
+                    <p class="stat-value">2,500 RON</p>
+                </div>
+            </div> -->
+        </section>
+
+        <section class="dashboard-section analytics-section">
+            <div class="section-header">
+                <h2>Analitici</h2>
+            </div>
+            <div class="analytics-grid" style="display: flex; justify-content: center; align-items: center;">
+                <center>
+                    <div class="chart-container" style="margin-bottom: 20px;">
+                        <h3>Venituri</h3>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </center>
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="dashboard-section appointments-section">
+                <div class="section-header">
+                    <h2>Programările din următoarele 7 zile</h2>
+                    <a href="{{appurl}}/dashboard/appointments#cal" class="view-all">Vezi toate</a>
+                </div>
+                <div class="appointment-list">
+                    {% if services|length > 0 %}
+                        {% for j in services %}
+                        <div class="appointment-item">
+                            <div class="appointment-time">
+                                <span class="time" style="font-size: 25px;">{{j.date|date:"H:i"}}</span>
+                                <span class="duration">{{j.date|date:"j F Y"}}</span>
+                            </div>
+                            <div class="appointment-details">
+                                <h3>{{j.title}}</h3>
+                                <div class="client-info">
+                                    <img src="{{j.avatar}}">
+                                    <span>{{j.owned_friendly}}</span>
+                                </div>
+                                <div class="vehicle-info">
+                                    <i class="fas fa-car"></i>
+                                    <span>{{j.name}} ({{j.plate}})</span>
+                                </div>
+                            </div>
+                            <!-- <div class="appointment-status scheduled">
+                                <span>Programată</span>
+                            </div> -->
+                            <div class="appointment-actions">
+                                <button class="btn-icon" onclick="window.location.href='{{appurl}}/dashboard/service/{{j.id}}'"><i class="fas fa-eye"></i></button>
+                                <!-- <button class="btn-icon"><i class="fas fa-trash-alt"></i></button> -->
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <center>
+                            <h3>⚠️ În acest moment, nu există programări în următoarele 7 zile.</h3>
+                        </center>
+                    {% endif %}
+                </div>
+                <button class="btn-primary add-appointment" onclick="AddAppointment('open');">
+                    <i class="fas fa-plus"></i> Adaugă servisare
+                </button>
+            </section>
+
+            <!-- Service Status Section -->
+            <section class="dashboard-section service-status-section">
+                <div class="section-header">
+                    <h2>Cazuri deschise</h2>
+                    <a href="{{appurl}}/dashboard/appointments#aloc" class="view-all">Vezi toate</a>
+                </div>
+                <div class="service-status-content">
+                    <div class="tab-content active" id="in-progress">
+                        {% if opened_services|length > 0 %}
+                            {% for j in opened_services %}
+                            <div class="service-card">
+                                <div class="service-header">
+                                    <div class="service-id">#SRV-{{j.id}}</div>
+                                    <div class="service-date">{{j.date}}</div>
+                                </div>
+                                <div class="service-details">
+                                    <h3>{{j.title}}</h3>
+                                    <div class="client-vehicle">
+                                        <div class="client">
+                                            <img src="{{j.avatar}}" alt="Client">
+                                            <span>{{j.owned_friendly}}</span>
+                                        </div>
+                                        <div class="vehicle">
+                                            <i class="fas fa-car"></i>
+                                            <span>{{j.name}} ({{j.plate}})</span>
+                                        </div>
+                                    </div>
+                                    <div class="service-progress">
+                                        <div class="progress-label">
+                                            <span>Progres</span>
+                                            <span>{{j.perc}}%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: {{j.perc}}%;"></div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="service-technician">
+                                        <span>Technician:</span>
+                                        <span>Mike Thompson</span>
+                                    </div> -->
+                                </div>
+                                <div class="service-actions">
+                                    <button class="btn-outline" onclick="window.location.href='{{appurl}}/dashboard/service/{{j.id}}';">Vezi detalii</button>
+                                    <!-- <button class="btn-text">Vezi detalii</button> -->
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <center>
+                                <h3>⚠️ În acest moment, nu există cazuri deschise.</h3>
+                            </center>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+
+<div class="modal" id="AddAppointment">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Adaugă Servisare 🛠️</h2>
+            <button class="close-modal" onclick="AddAppointment('close');">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="addCompanyForm" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="serviceVehicle">Selectează un vehicul</label>
+                    <select name="serviceVehicle" required>
+                        <option value="">Selectează un vehicul</option>
+                        {% for i in vehicles %}
+                        <option value="{{i.id}}">{{i.name}} ({{i.plate}})</option>
+                        {% endfor %}
+                    </select>
+                    <p>
+                        <small>Nu găsești vehiculul? <a href="{{appurl}}/dashboard/clients">Adaugă-l</a></small>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDate">Dată servisare</label>
+                    <input type="date" name="serviceDate" id="serviceDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDate_hour">Ora servisării</label>
+                    <select name="serviceDate_hour" id="serviceDate_hour">
+                        <option value="">Selectează o oră</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="serviceTitle">Adaugă titlu</label>
+                    <input type="text" name="serviceTitle" id="serviceTitle" placeholder="Exemplu: Înlocuire ambreiaj, Schimb ulei" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceNote">Estimare de preț</label>
+                    <input type="number" name="serviceNote" id="serviceNote" placeholder="Introdu prețul în RON" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" name="appointment">Adaugă servisare</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('serviceDate').addEventListener("change", function() {
+        const selectedDate = this.value; 
+        let timeSelect = document.getElementById(`serviceDate_hour`);
+
+        if (!selectedDate) return;
+
+        fetch(`/api/ore?date=${selectedDate}`)
+            .then(response => response.json())
+            .then(data => {
+                timeSelect.innerHTML = '<option value="">Selectează o oră</option>';
+                
+                data.available_slots.forEach(slot => {
+                    const opt = document.createElement("option");
+                    opt.value = slot;
+                    opt.text = slot;
+                    timeSelect.appendChild(opt);
+                });
+            })
+            .catch(error => { });
+    });
+
+    AddAppointment = (action) => {
+        $(`#AddAppointment`).css('display', action == 'open' ? 'block' : 'none');
+    };
+
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ revenue.labels|safe }},
+                datasets: [{
+                    label: 'RON',
+                    data: {{ revenue.data|safe }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+</script>
+{% endblock %}

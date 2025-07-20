@@ -1,0 +1,85 @@
+{% extends "dashboard/base.html" %}
+{% block title %}ServiceHub - Acasă{% endblock %}
+{% block content %}
+<main class="main-content">
+    {% include "dashboard/header.html" %}
+
+    <div class="dashboard-content">
+        <section class="dashboard-section company-management">
+            <div class="section-header">
+                <h2>Tehnicieni</h2>
+                <button class="btn-outline btn-sm" onclick="TechModal('open');">
+                    <i class="fas fa-plus"></i> Adaugă tehnician
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nume</th>
+                            <th>E-mail</th>
+                            <th>Nr. telefon</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in technicians %}
+                        <tr>
+                            <td>
+                                <div class="company-info">
+                                    <div>
+                                        <h4>{{i.name}}</h4>
+                                        <span>{{i.company}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="email-censor">{{i.email}}</td>
+                            <td>{{i.phone}}</td>
+                            <td><span class="status-badge active">Activ</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div class="modal" id="AddTech">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Adaugă un Tehnician 🧑‍🔧</h2>
+            <button class="close-modal" onclick="TechModal('close');">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="addCompanyForm" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="companyName">Nume Tehnician</label>
+                    <input type="text" name="companyName" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyEmail">Email</label>
+                    <input type="email" name="companyEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyPhone">Telefon</label>
+                    <input type="tel" name="companyPhone" id="companyPhone" required>
+                    <font onclick="$(`#companyPhone`).val('07XXXXXXXX')" style="cursor:pointer;">
+                        <small>Nu vreau să adaug un număr de telefon 👈</small>
+                    </font>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" name="addtech">Adaugă tehnician</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    TechModal = (action) => {
+        $(`#AddTech`).css('display', action == 'open' ? 'block' : 'none');
+    };
+</script>
+{% endblock %}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificare</title>
+    <style type="text/css">
+        /* Reset styles */
+        body, p, td, th {
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333333;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            background-color: #f5f5f5;
+        }
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+        table td {
+            border-collapse: collapse;
+        }
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
+        /* Client-specific resets */
+        .ReadMsgBody { width: 100%; }
+        .ExternalClass { width: 100%; }
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 100% !important;
+            }
+            .mobile-padding {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+            .mobile-stack {
+                display: block !important;
+                width: 100% !important;
+            }
+            .mobile-center {
+                text-align: center !important;
+            }
+            .mobile-logo {
+                margin: 0 auto !important;
+            }
+            .hide-mobile {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f5f5f5;">
+    <div style="display: none; max-height: 0px; overflow: hidden;">
+        Actualizare a service-ului vehiculului dumneavoastră de la ServiceHub - vă ținem la curent la fiecare pas.
+    </div>
+    
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f5f5f5;">
+        <tr>
+            <td align="center" valign="top">
+                <table border="0" cellpadding="0" cellspacing="0" width="600" class="container" style="background-color: #ffffff; margin: 20px auto; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <tr>
+                        <td align="center" valign="top" style="background-color: #ffffff; padding: 30px 0 20px 0;" class="mobile-padding">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <img src="https://servicehub.hypenet.ro/static/img/servicehub-black.png" alt="ServiceHub Logo" width="200" style="display: block; border: 0px;" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="top" style="padding: 5px 0 0 0; font-family: 'Arial', sans-serif; font-size: 14px; color: #64748b;">
+                                        Management Profesional al Service-urilor
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="background-color: #f97316; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <td align="center" valign="top" style="padding: 40px 30px 30px 30px;" class="mobile-padding">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 16px; font-weight: bold; color: #1e293b; padding-bottom: 10px;">
+                                        Salutare,
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; line-height: 1.6; color: #475569; padding-bottom: 20px;">
+                                        Îți scriem în legătură cu servisarea progrmată pe vehiculul tău. Vehiculul tău {{vehicle}} este servisat la {{company_name}}.
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td align="center" valign="top" style="padding: 0 0 30px 0;">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                            <tr>
+                                                <td align="left" valign="top" style="padding: 20px;">
+                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                        <tr>
+                                                            <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 16px; font-weight: bold; color: #1e293b; padding-bottom: 15px;">
+                                                                Detalii servisare
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top" style="padding-bottom: 15px;">
+                                                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                    <tr>
+                                                                        <td width="150" align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; color: #64748b; padding-bottom: 5px;">
+                                                                            ID Servisare:
+                                                                        </td>
+                                                                        <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; color: #1e293b; font-weight: 600; padding-bottom: 5px;">
+                                                                            {{id}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="150" align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; color: #64748b; padding-bottom: 5px;">
+                                                                            Servisare:
+                                                                        </td>
+                                                                        <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; color: #1e293b; font-weight: 600; padding-bottom: 5px;">
+                                                                            {{title}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="150" align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; color: #64748b; padding-bottom: 5px;">
+                                                                            Status curent:
+                                                                        </td>
+                                                                        <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; color: #f97316; font-weight: 600; padding-bottom: 5px;">
+                                                                            {{status}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; color: #475569; padding-bottom: 15px;">
+                                                                <strong>Estimare de preț:</strong><br>
+                                                                {{price}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top" style="padding-top: 5px;">
+                                                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                    <tr>
+                                                                        <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; color: #64748b;">
+                                                                            Progresul Servisării:
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="left" valign="top" style="padding-top: 8px;">
+                                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #e2e8f0; border-radius: 4px; height: 10px;">
+                                                                                <tr>
+                                                                                    <td width="{{perc}}%" style="background-color: #f97316; height: 10px; border-radius: 4px 0 0 4px;"></td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="right" valign="top" style="font-family: 'Arial', sans-serif; font-size: 12px; color: #64748b; padding-top: 5px;">
+                                                                            {{perc}}% Complet
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; line-height: 1.6; color: #475569; padding-bottom: 25px;">
+                                        {{msg}}<br/>Poți urmări statusul vehiculului în timp real din contul tău de client.
+                                    </td>
+                                </tr>
+                                
+                                <!-- CTA Button -->
+                                <tr>
+                                    <td align="center" valign="top" style="padding-bottom: 30px;">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" valign="top" style="background-color: #f97316; border-radius: 6px;">
+                                                    <a href="{{url}}" target="_blank" style="display: inline-block; font-family: 'Arial', sans-serif; font-size: 16px; font-weight: bold; color: #ffffff; text-decoration: none; padding: 12px 30px; border-radius: 6px;">Vezi detalii</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; line-height: 1.6; color: #475569;">
+                                        Îți mulțumim că folosești ServiceHub.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top" style="font-family: 'Arial', sans-serif; font-size: 14px; line-height: 1.6; color: #475569; padding-top: 20px;">
+                                        Toate cele bune,<br>
+                                        Echipa ServiceHub
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" valign="top" style="background-color: #f8fafc; padding: 30px;" class="mobile-padding">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center" valign="top" style="font-family: 'Arial', sans-serif; font-size: 12px; line-height: 1.5; color: #64748b;">
+                                        © 2025 ServiceHub. Toate drepturile rezervate.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="top" style="padding-top: 15px; font-family: 'Arial', sans-serif; font-size: 12px; line-height: 1.5; color: #64748b;">
+                                        <a href="#" target="_blank" style="color: #64748b; text-decoration: underline;">Politica de confidențialitate</a> &nbsp;|&nbsp; 
+                                        <a href="#" target="_blank" style="color: #64748b; text-decoration: underline;">Termeni și condiții</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

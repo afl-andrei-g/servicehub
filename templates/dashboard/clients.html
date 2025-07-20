@@ -1,0 +1,209 @@
+{% extends "dashboard/base.html" %}
+{% block title %}ServiceHub - Acasă{% endblock %}
+{% block content %}
+<main class="main-content">
+    {% include "dashboard/header.html" %}
+
+    <div class="dashboard-content">
+        <section class="dashboard-section company-management">
+            <div class="section-header">
+                <h2>Clienți</h2>
+                <button class="btn-outline btn-sm" onclick="ClientModal('open');">
+                    <i class="fas fa-plus"></i> Adaugă client
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nume</th>
+                            <th>E-mail</th>
+                            <th>Vehicule alocate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in clients %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.name}}</td>
+                            <td class="email-censor">{{i.email}}</td>
+                            <td>{{i.vehicles}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="dashboard-section company-management">
+            <div class="section-header">
+                <h2>Vehicule alocate</h2>
+                <button class="btn-outline btn-sm" onclick="VehModal('open');">
+                    <i class="fas fa-plus"></i> Adaugă vehicul
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Vehicul</th>
+                            <th>Deținut de</th>
+                            <th>Ultima servisare</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in vehicles %}
+                        <tr>
+                            <td>
+                                <div class="company-info">
+                                    <div>
+                                        <h4>{{i.name}}</h4>
+                                        <span>{{i.plate}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{i.owned_friendly}} (#{{i.owned_by}})</td>
+                            <td>
+                                Vineri, 20 Martie, 2025
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div class="modal" id="ClientModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Adaugă un Client 🧑‍🦰</h2>
+            <button class="close-modal" onclick="ClientModal('close');">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="addCompanyForm" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="companyName">Nume Client</label>
+                    <input type="text" name="clientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyEmail">Email</label>
+                    <input type="email" name="clientEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyPhone">Telefon</label>
+                    <input type="tel" name="clientPhone" id="clientPhone" required>
+                    <font onclick="$(`#clientPhone`).val('07XXXXXXXX')" style="cursor:pointer;">
+                        <small>Nu vreau să adaug un număr de telefon 👈</small>
+                    </font>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" name="client">Adaugă client</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="VehModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Adaugă un Vehicul 🚗</h2>
+            <button class="close-modal" onclick="VehModal('close');">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="addCompanyForm" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="vehMake">Marca vehiculului</label>
+                    <select name="vehMake" id="vehMake" required>
+                        <option value="">Selectează o marcă</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vehModel">Model</label>
+                    <input type="text" name="vehModel" id="vehModel" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehYear">Anul producției</label>
+                    <input type="number" name="vehYear" id="vehYear" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehPlate">Număr de înmatriculare</label>
+                    <input type="text" name="vehPlate" id="vehPlate" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehClient">Alocă unui client</label>
+                    <select name="vehClient" id="vehClient" required>
+                        <option value="">Selectează un client</option>
+                        {% for i in clients %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" name="vehicle">Adaugă vehicul</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const goodMakes = [
+        "Acura", "Alfa Romeo", "Audi", "BMW", "Chevrolet", "Chrysler", "Citroen",
+        "Dacia", "Dodge", "Fiat", "Ford", "Honda", "Hyundai", "Infiniti",
+        "Jaguar", "Jeep", "Kia", "Land Rover", "Lexus", "Mazda", "Mercedes-Benz",
+        "Mini", "Mitsubishi", "Nissan", "Opel", "Peugeot", "Porsche", "Renault",
+        "SEAT", "Skoda", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo"
+    ]
+
+    const makeSelect = document.getElementById('vehMake');
+    // const modelSelect = document.getElementById('modelSelect');
+
+    goodMakes.forEach(make => {
+        const option = document.createElement('option');
+        option.value = make;
+        option.textContent = make;
+        makeSelect.appendChild(option);
+    });
+
+    // makeSelect.addEventListener('change', function() {
+    //     const selectedMake = this.value;
+    //     modelSelect.innerHTML = '<option value="">Selectează model</option>';
+
+    //     if (selectedMake) {
+    //         modelSelect.disabled = true;
+    //         fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/${selectedMake}?format=json`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             const models = data.Results;
+    //             models.forEach(model => {
+    //             const option = document.createElement('option');
+    //             option.value = model.Model_Name;
+    //             option.textContent = model.Model_Name;
+    //             modelSelect.appendChild(option);
+    //             });
+    //             modelSelect.disabled = false;
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching models:', error);
+    //             modelSelect.disabled = false;
+    //         });
+    //     } else {
+    //         modelSelect.disabled = true;
+    //     }
+    // });
+
+
+    ClientModal = (action) => {
+        $(`#ClientModal`).css('display', action == 'open' ? 'block' : 'none');
+    };
+
+    VehModal = (action) => {
+        $(`#VehModal`).css('display', action == 'open' ? 'block' : 'none');
+    };
+</script>
+{% endblock %}

@@ -32,7 +32,7 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/servicehub.git
+   git clone https://github.com/afl-andrei-g/servicehub.git
    cd servicehub
    python -m venv venv
    source venv/bin/activate

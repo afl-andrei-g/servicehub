@@ -30,7 +30,6 @@
 ## ⚙️ Local Installation
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/afl-andrei-g/servicehub.git
    cd servicehub
@@ -41,15 +40,15 @@
 
 2. Create a .env file in the root of the project
   ```bash
-   SECRET_KEY='SECRET_KEY'
-   APP_URL='YOUR_APP_URL'
-   EMAIL_HOST='SMTP_HOST'
-   EMAIL_HOST_USER = 'SMTP_USER'
-   EMAIL_HOST_PASSWORD = 'SMTP_PW'
+  SECRET_KEY='SECRET_KEY'
+  APP_URL='YOUR_APP_URL'
+  EMAIL_HOST='SMTP_HOST'
+  EMAIL_HOST_USER = 'SMTP_USER'
+  EMAIL_HOST_PASSWORD = 'SMTP_PW'
 
-   DB_USER='SMTP_USER'
-   DB_PW='SMTP_PW'
-   DB_HOST='localhost'
+  DB_USER='SMTP_USER'
+  DB_PW='SMTP_PW'
+  DB_HOST='localhost'
   ```
 
 Make sure you fill all the needed information, including upload of the database.
